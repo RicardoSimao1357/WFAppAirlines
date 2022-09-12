@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CompanhiaAerea" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=msi;Initial Catalog=CompanhiaAerea;Integrated Security=True" SettingsObjectName="AppCompanhiaAerea_V._4.Properties.Settings" SettingsPropertyName="CompanhiaAereaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Voos" Member="Voos">
+    <Type Name="Voos">
+      <Column Name="idVoo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idAeroporto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idAviao" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="destino" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dataVoo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="horaVoo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Voos_Bilhetes" Member="Bilhetes" ThisKey="idVoo" OtherKey="idVoo" Type="Bilhetes" />
+      <Association Name="Avioes_Voos" Member="Avioes" ThisKey="idAviao" OtherKey="idAviao" Type="Avioes" IsForeignKey="true" />
+      <Association Name="Aeroportos_Voos" Member="Aeroporto" ThisKey="idAeroporto" OtherKey="idAeroporto" Type="Aeroportos" IsForeignKey="true" />
+      <Association Name="Aeroportos_Voos1" Member="Aeroportos" ThisKey="destino" OtherKey="idAeroporto" Type="Aeroportos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bilhetes" Member="Bilhetes">
+    <Type Name="Bilhetes">
+      <Column Name="idBilhete" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idVoo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresEconomicosOcupados" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresExecutivosOcupados" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresPrimeiraClasseOcupados" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Bilhetes_Venda" Member="Vendas" ThisKey="idBilhete" OtherKey="idBilhete" Type="Vendas" />
+      <Association Name="Voos_Bilhetes" Member="Voos" ThisKey="idVoo" OtherKey="idVoo" Type="Voos" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Avioes" Member="Avioes">
+    <Type Name="Avioes">
+      <Column Name="idAviao" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="matricula" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresEconomicos" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresExecutivos" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugaresPrimeiraClasse" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Avioes_Voos" Member="Voos" ThisKey="idAviao" OtherKey="idAviao" Type="Voos" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Aeroportos" Member="Aeroportos">
+    <Type Name="Aeroportos">
+      <Column Name="idAeroporto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nome" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="localidade" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Aeroportos_Voos" Member="Voos" ThisKey="idAeroporto" OtherKey="idAeroporto" Type="Voos" />
+      <Association Name="Aeroportos_Voos1" Member="Voos1" ThisKey="idAeroporto" OtherKey="destino" Type="Voos" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vendas" Member="Vendas">
+    <Type Name="Vendas">
+      <Column Name="idVenda" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nif" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idBilhete" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="lugar" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Categoria" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Bilhetes_Venda" Member="Bilhetes" ThisKey="idBilhete" OtherKey="idBilhete" Type="Bilhetes" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
